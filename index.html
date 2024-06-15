@@ -1,0 +1,81 @@
+html
+
+Open In Editor
+Edit
+Run
+Copy code
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-image: url('https://www.hdwallpapers.in/download/red_roses_petals_flowers_background_hd_flowers-HD.jpg');
+      background-size: cover;
+      background-position: center;
+    }
+   .box {
+      width: 100px;
+      height: 100px;
+      display: inline-block;
+      margin: 10px;
+      background-color: #FFC0CB; /* pink color */
+    }
+   .popup {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: #fff;
+      padding: 20px;
+      border: 1px solid #000;
+      box-shadow: 0px 0px 10px rgba(0,0,0,0.5);
+      animation: popup 0.5s ease-out;
+    }
+    @keyframes popup {
+      0% { transform: translate(-50%, -50%) scale(0); }
+      100% { transform: translate(-50%, -50%) scale(1); }
+    }
+   .butterfly {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      animation: butterfly 3s ease-out infinite;
+    }
+    p, h1{
+        color: #fff;
+    }
+    @keyframes butterfly {
+      0% { transform: translate(-50%, -50%) scale(0.5); }
+      50% { transform: translate(-50%, -50%) scale(1); }
+      100% { transform: translate(-50%, -50%) scale(0.5); }
+    }
+  </style>
+</head>
+<body>
+
+<h1>Hi Nneoma</h1>
+<p>Pick a box</p>
+
+<div class="box" onclick="openPopup()"></div>
+<div class="box" onclick="openPopup()"></div>
+<div class="box" onclick="openPopup()"></div>
+
+<div class="popup">
+  <img src="./image/8-tqhFILafzjaMOkv.png" alt="Animated Rose">
+  <p>for you</p>
+</div>
+
+<!-- <img src="https://i.pinimg.com/originals/5d/1c/30/5d1c3079d32347edb7fae1d21c73dc91.gif" alt="Butterfly" class="butterfly"> -->
+
+<script>
+  function openPopup() {
+    document.querySelector('.popup').style.display = 'block';
+  }
+</script>
+
+</body>
+</html>
