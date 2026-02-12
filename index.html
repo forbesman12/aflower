@@ -1,81 +1,433 @@
-html
-
-Open In Editor
-Edit
-Run
-Copy code
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background-image: url('https://www.hdwallpapers.in/download/red_roses_petals_flowers_background_hd_flowers-HD.jpg');
-      background-size: cover;
-      background-position: center;
-    }
-   .box {
-      width: 100px;
-      height: 100px;
-      display: inline-block;
-      margin: 10px;
-      background-color: #FFC0CB; /* pink color */
-    }
-   .popup {
-      display: none;
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background: #fff;
-      padding: 20px;
-      border: 1px solid #000;
-      box-shadow: 0px 0px 10px rgba(0,0,0,0.5);
-      animation: popup 0.5s ease-out;
-    }
-    @keyframes popup {
-      0% { transform: translate(-50%, -50%) scale(0); }
-      100% { transform: translate(-50%, -50%) scale(1); }
-    }
-   .butterfly {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      animation: butterfly 3s ease-out infinite;
-    }
-    p, h1{
-        color: #fff;
-    }
-    @keyframes butterfly {
-      0% { transform: translate(-50%, -50%) scale(0.5); }
-      50% { transform: translate(-50%, -50%) scale(1); }
-      100% { transform: translate(-50%, -50%) scale(0.5); }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Valentine</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #ff6b9d 0%, #c06c84 50%, #6c5b7b 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Floating hearts background */
+        .hearts-bg {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        .heart-bg {
+            position: absolute;
+            font-size: 30px;
+            opacity: 0.3;
+            animation: floatUp 15s infinite;
+        }
+
+        @keyframes floatUp {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.3;
+            }
+            90% {
+                opacity: 0.3;
+            }
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        .val-container {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 30px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            padding: 3rem 2.5rem;
+            max-width: 450px;
+            width: 90vw;
+            text-align: center;
+            position: relative;
+            z-index: 10;
+        }
+
+        h1 {
+            color: #e75480;
+            margin-bottom: 1.5rem;
+            font-size: 2.5rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .val-message {
+            color: #555;
+            margin-bottom: 2rem;
+            font-size: 1.3rem;
+        }
+
+        .val-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 1rem;
+            position: relative;
+            min-height: 60px;
+        }
+
+        .val-buttons button {
+            background: #e75480;
+            color: #fff;
+            border: none;
+            border-radius: 25px;
+            padding: 0.9rem 2rem;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(231, 84, 128, 0.3);
+            font-weight: 600;
+            position: relative;
+        }
+
+        #yesBtn:hover {
+            background: #ff69b4;
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(231, 84, 128, 0.4);
+        }
+
+        #noBtn {
+            position: absolute;
+            transition: all 0.3s ease;
+        }
+
+        /* Roses container */
+        .roses-container {
+            display: none;
+            margin: 2rem 0;
+            animation: fadeInScale 1s ease-out;
+        }
+
+        .roses-container.show {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .rose {
+            font-size: 50px;
+            animation: roseGrow 0.6s ease-out forwards;
+            opacity: 0;
+        }
+
+        .rose:nth-child(1) { animation-delay: 0.1s; }
+        .rose:nth-child(2) { animation-delay: 0.2s; }
+        .rose:nth-child(3) { animation-delay: 0.3s; }
+        .rose:nth-child(4) { animation-delay: 0.4s; }
+        .rose:nth-child(5) { animation-delay: 0.5s; }
+
+        @keyframes roseGrow {
+            0% {
+                transform: scale(0) rotate(-45deg);
+                opacity: 0;
+            }
+            60% {
+                transform: scale(1.2) rotate(10deg);
+            }
+            100% {
+                transform: scale(1) rotate(0deg);
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeInScale {
+            from {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .instruction {
+            display: none;
+            color: #e75480;
+            font-size: 1.1rem;
+            margin: 1.5rem 0 1rem;
+            font-weight: 600;
+            animation: fadeIn 0.8s ease-out;
+            animation-delay: 0.6s;
+            animation-fill-mode: both;
+        }
+
+        .instruction.show {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Cards container */
+        .cards-container {
+            display: none;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 1.5rem;
+        }
+
+        .cards-container.show {
+            display: flex;
+        }
+
+        .card {
+            width: 120px;
+            height: 160px;
+            perspective: 1000px;
+            cursor: pointer;
+        }
+
+        .card-inner {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.6s;
+        }
+
+        .card.flipped .card-inner {
+            transform: rotateY(180deg);
+        }
+
+        .card-front, .card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .card-front {
+            background: linear-gradient(135deg, #ff6b9d 0%, #ff8fab 100%);
+            color: white;
+            font-size: 2.5rem;
+        }
+
+        .card-back {
+            background: white;
+            color: #e75480;
+            transform: rotateY(180deg);
+            font-size: 0.85rem;
+            text-align: center;
+            line-height: 1.5;
+        }
+
+        .card-back .icon {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .card-back .title {
+            font-weight: 700;
+            font-size: 0.95rem;
+            margin-top: 0.3rem;
+        }
+
+        .yay-message {
+            display: none;
+            color: #e75480;
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            animation: bounceIn 0.8s ease-out;
+        }
+
+        .yay-message.show {
+            display: block;
+        }
+
+        @keyframes bounceIn {
+            0% {
+                transform: scale(0);
+                opacity: 0;
+            }
+            50% {
+                transform: scale(1.1);
+            }
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        @media (max-width: 500px) {
+            .val-container {
+                padding: 2rem 1.5rem;
+            }
+            h1 {
+                font-size: 1.8rem;
+            }
+            .card {
+                width: 100px;
+                height: 140px;
+            }
+            .card-back {
+                font-size: 0.75rem;
+            }
+        }
+    </style>
 </head>
 <body>
+    <div class="hearts-bg" id="heartsBg"></div>
+    
+    <div class="val-container">
+        <h1>Will you be my Valentine?</h1>
+        <p class="val-message">👀🫣</p>
+        
+        <div class="val-buttons">
+            <button id="yesBtn">Yes</button>
+            <button id="noBtn">No</button>
+        </div>
 
-<h1>Hi Nneoma</h1>
-<p>Pick a box</p>
+        <div class="yay-message" id="yayMessage">Yay! 💕</div>
+        
+        <div class="roses-container" id="rosesContainer">
+            <span class="rose">🌹</span>
+            <span class="rose">🌹</span>
+            <span class="rose">🌹</span>
+            <span class="rose">🌹</span>
+            <span class="rose">🌹</span>
+        </div>
 
-<div class="box" onclick="openPopup()"></div>
-<div class="box" onclick="openPopup()"></div>
-<div class="box" onclick="openPopup()"></div>
+        <p class="instruction" id="instruction">Click all cards to reveal your surprises!</p>
 
-<div class="popup">
-  <img src="./image/8-tqhFILafzjaMOkv.png" alt="Animated Rose">
-  <p>for you</p>
-</div>
+        <div class="cards-container" id="cardsContainer">
+            <div class="card" onclick="flipCard(this)">
+                <div class="card-inner">
+                    <div class="card-front">❓</div>
+                    <div class="card-back">
+                        <div class="icon">🥞</div>
+                        <div class="title">Morning Buffet</div>
+                    </div>
+                </div>
+            </div>
 
-<!-- <img src="https://i.pinimg.com/originals/5d/1c/30/5d1c3079d32347edb7fae1d21c73dc91.gif" alt="Butterfly" class="butterfly"> -->
+            <div class="card" onclick="flipCard(this)">
+                <div class="card-inner">
+                    <div class="card-front">❓</div>
+                    <div class="card-back">
+                        <div class="icon">🎁</div>
+                        <div class="title">A Special Gift</div>
+                    </div>
+                </div>
+            </div>
 
-<script>
-  function openPopup() {
-    document.querySelector('.popup').style.display = 'block';
-  }
-</script>
+            <div class="card" onclick="flipCard(this)">
+                <div class="card-inner">
+                    <div class="card-front">❓</div>
+                    <div class="card-back">
+                        <div class="icon">✨</div>
+                        <div class="title">Another Surprise in Person</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
+    <script>
+        // Create floating hearts in background
+        const heartsBg = document.getElementById('heartsBg');
+        for (let i = 0; i < 15; i++) {
+            const heart = document.createElement('div');
+            heart.className = 'heart-bg';
+            heart.textContent = '💕';
+            heart.style.left = Math.random() * 100 + '%';
+            heart.style.animationDelay = Math.random() * 15 + 's';
+            heart.style.fontSize = (Math.random() * 20 + 20) + 'px';
+            heartsBg.appendChild(heart);
+        }
+
+        const yesBtn = document.getElementById('yesBtn');
+        const noBtn = document.getElementById('noBtn');
+        const message = document.querySelector('.val-message');
+        const yayMessage = document.getElementById('yayMessage');
+        const rosesContainer = document.getElementById('rosesContainer');
+        const instruction = document.getElementById('instruction');
+        const cardsContainer = document.getElementById('cardsContainer');
+
+        // Yes button click
+        yesBtn.onclick = function() {
+            message.style.display = 'none';
+            yesBtn.style.display = 'none';
+            noBtn.style.display = 'none';
+            
+            yayMessage.classList.add('show');
+            
+            setTimeout(() => {
+                rosesContainer.classList.add('show');
+            }, 500);
+
+            setTimeout(() => {
+                instruction.classList.add('show');
+                cardsContainer.classList.add('show');
+            }, 2000);
+        };
+
+        // No button - floats away on hover
+        let isFloating = false;
+        noBtn.addEventListener('mouseenter', floatAway);
+        noBtn.addEventListener('touchstart', floatAway);
+
+        function floatAway(e) {
+            e.preventDefault();
+            if (isFloating) return;
+            isFloating = true;
+
+            const container = document.querySelector('.val-buttons');
+            const containerRect = container.getBoundingClientRect();
+            const btnRect = noBtn.getBoundingClientRect();
+            
+            const maxX = containerRect.width - btnRect.width;
+            const maxY = 100;
+            
+            const newX = Math.random() * maxX - (btnRect.left - containerRect.left);
+            const newY = (Math.random() - 0.5) * maxY;
+            
+            noBtn.style.transform = `translate(${newX}px, ${newY}px)`;
+            
+            setTimeout(() => {
+                isFloating = false;
+            }, 400);
+        }
+
+        // Card flip function
+        function flipCard(card) {
+            card.classList.toggle('flipped');
+        }
+    </script>
 </body>
 </html>
